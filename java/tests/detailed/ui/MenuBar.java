@@ -342,6 +342,57 @@ public class MenuBar extends JMenuBar {
         });
         testMenu.add(httpRequest);
 
+        JMenu fileDialogMenu = new JMenu("File Dialogs");
+        JMenuItem folderDialog = fileDialogMenu.add(new JMenuItem("Folder Dialog"));
+        folderDialog.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                browser_.runFileDialog(FileDialogMode.FILE_DIALOG_OPEN_FOLDER, "Select a folder",
+                    "", null, 0, filePaths -> {
+                        if (!filePaths.isEmpty()) {
+                            System.out.println("Selected folder: " + filePaths);
+                        }
+                    });
+            }
+        });
+        JMenuItem fileDialog = fileDialogMenu.add(new JMenuItem("File Dialog"));
+        fileDialog.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                browser_.runFileDialog(FileDialogMode.FILE_DIALOG_OPEN, "Select a file",
+                        "", null, 0, filePaths -> {
+                            if (!filePaths.isEmpty()) {
+                                System.out.println("Selected file: " + filePaths);
+                            }
+                        });
+            }
+        });
+        JMenuItem fileDialogMultiple = fileDialogMenu.add(new JMenuItem("File Dialog Multiple"));
+        fileDialogMultiple.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                browser_.runFileDialog(FileDialogMode.FILE_DIALOG_OPEN_MULTIPLE, "Select files",
+                        "", null, 0, filePaths -> {
+                            if (!filePaths.isEmpty()) {
+                                System.out.println("Selected files: " + filePaths);
+                            }
+                        });
+            }
+        });
+        JMenuItem fileDialogSave = fileDialogMenu.add(new JMenuItem("File Dialog Save"));
+        fileDialogSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                browser_.runFileDialog(FileDialogMode.FILE_DIALOG_SAVE, "Save file",
+                        "", null, 0, filePaths -> {
+                            if (!filePaths.isEmpty()) {
+                                System.out.println("Saved file: " + filePaths);
+                            }
+                        });
+            }
+        });
+        testMenu.add(fileDialogMenu);
+
         JMenuItem showInfo = new JMenuItem("Show Info");
         showInfo.addActionListener(new ActionListener() {
             @Override
